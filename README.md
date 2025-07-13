@@ -1,7 +1,11 @@
 # Are you tired of the way Unity forces you to pass parameters into your Animator?
 At least I did! That endless `Animator.StringToHash("my_parameter_name")` code bothered me so much...
 
-That's why I've came up with that little library that allows you to forget about hashing of parameter's name forever. It effectively remembers a parameter name when you instantiating it and then reuses it hash automatically after. No need to define endless constants in your animation controller scripts!
+That's why I've came up with that little library that allows you to forget about hashing of parameter's name forever. It effectively **remembers a parameter name** when you instantiating it and then **reuses its hash** automatically after. 
+
+No need to define endless constants in your animation controller scripts anymore!
+
+As simple as `_isMoving = new BooleanParameter("is_moving", _animator);` and `_isMoving.Value = true;`.
 
 # Getting started
 
@@ -45,7 +49,7 @@ public class AnimatorParameterExample : MonoBehaviour
         _animator = GetComponent<Animator>();
 
         // STEP 3. Create instances of parameters (define names right in the constructor, no need to cache them) and pass that animator into them
-        _isMoving = new BooleanParameter("is_moving", _animator);
+        BooleanParameter _isMoving = new BooleanParameter("is_moving", _animator);
         _velocity = new FloatParameter("velocity", _animator);
         _onLand = new TriggerParameter("on_land", _animator);
     }
@@ -78,3 +82,7 @@ private void SomeMethod()
 * It uses `Animator.StringToHash()` inside to ensuremaxmum performance;
 * Super easy to GET or SET new value by just accessing `.Value` of parameter;
 *  got plans to add a value caching into a base class, to animator will receive new value only if it's changed;
+
+# Want me to add something OR found a bug?
+
+Please add an issue and describe your feature request or bug. I will add a feature if consider it usefull, and for sure will fix bugs, 'cause I'm using that package myself in my games.
