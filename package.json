@@ -1,13 +1,13 @@
 {
 	"name": "madeyellow.animator-parameters",
 	"displayName": "AnimatorParameters",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"unity": "2019.1",
 	"author": {
 		"name": "MadeYellow",
 		"url": "https://github.com/madeyellow"
 	},
-	"description": "A string-typed animation parameters for Unity's Animator component",
+	"description": "A strong-typed animation parameters for Unity's Animator component",
 	"dependencies": {
 	},
 	"repository": {
