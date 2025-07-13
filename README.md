@@ -5,7 +5,10 @@ That's why I've came up with that little library that allows you to forget about
 
 # Getting started
 
-Just import that library into your project. Now head to the script where you work with Unity's Animator component. Add using of library namespace: `using MadeYellow.AnimatorParameter;`
+Just import that library into your project. Now only 3 tiny steps left to start using it:
+
+## Step 1
+Now head to the script where you work with Unity's Animator component. Add using of library namespace: `using MadeYellow.AnimatorParameter;`
 
 Now define Animator parameters using one of the following types:
 * **BooleanParameter** for **Bool** (true/false) parameter;
@@ -13,10 +16,12 @@ Now define Animator parameters using one of the following types:
 * **FloatParameter** for **Float** parameter;
 * **TriggerParameter** for trigger-parameter (best suited for events, like 'fall', etc.);
 
+## Step 2
 Then, right after you got a reference of your Animator create instances of all parameters you've defined above. There are two arguments:
 * **Codename**. It's just a string. It MUST be have same name that you've defined inside Animator controller in Unity Editor. *No need to define constant, just pass a string. Parameter will cache all the rest for you.*;
 * **Animator**. Well, this is the Animator tht you want to pass values into;
 
+## Step 3
 And that's it! Now you might just call `.Value` of your parameter and assign a value into it. Parameter will automatically send that value to the Animator.
 
 Here is the full example code.
