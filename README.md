@@ -1,72 +1,73 @@
 # ❓ What is it?
-A simple and tiny package that allows you to forget about:
-* Defining string constants for  Animator's parameters;
-* Caching parameter's hash with `Animator.StringToHash("my_parameter_name")`;
-* Remembering proper method to GET or SET parameter's value in the Animator;
+**Tired of animator parameter headaches?** This tiny Unity package eliminates you from:
+* 🚫 Manually defining string constants for Animator parameters;
+* 🚫 Manual caching hashes with `Animator.StringToHash()`;
+* 🚫 Remembering names of Get/Set methods for Animator's parameters;
 
-Instead of all the pain above you just:
-* Define a strong-typed parameter;
-* Pass a name. Same as in the Animator;
-* Done. You now may just use it's `.Value` to GET or SET value of Animator's parameter!
+Instead, enjoy the 3-simple-steps:
+* Define a strongly-typed parameter from the package;
+* Pass its string name (must match Animator parameter name);
+* Use `.Value` to get/set values instantly;
 
-It effectively **remembers a parameter name** (and calling/caching that `Animator.StringToHash` for you) when you instantiating it and then **reuses its hash** automatically after. 
+It effectively **hashes & caches parameter name** and **reuses it** automatically to get/set values with maximum performance possible. For you it will be as simple as the following:
 
-No need to define endless constants in your animation controller scripts anymore!
+```
+_isMoving = new BooleanParameter("is_moving", _animator);  
+_isMoving.Value = true; // Done! 🎉
+```
 
-As simple as `_isMoving = new BooleanParameter("is_moving", _animator);` and `_isMoving.Value = true;`.
-
-# 💾 How to install SettingsParameters to my Unity project?
-
-Use the Unity Package Manager (in Unity’s top menu: Window > Package Manager), click "+" icon, select "Add package from git URL" and type URL of this repository.
+# 💾 Installation
+* Open **Unity Package Manager** (Window > Package Manager) OR (Window > Package Management > Package Manager) in **Unity 6**;
+* Click "+" → "Add package from git URL";
+* Paste this **repo's URL**;
+* Hit **Install**;
 
 # 🚀 Getting started
-
-There are only 3 tiny steps left to start using it: define, instantiate & use them. Let's take a closer look at each step.
-
-## Step 1. Define parameters.
-Head to the script where you work with Unity's Animator component. Add using of library namespace: `using MadeYellow.AnimatorParameter;`
-
-Now define all needed Animator parameters using one of the following types:
-* **BooleanParameter** for **Bool** (true/false) parameter;
-* **IntegerParameter** for **Int** (0,1,2, etc.) parameter;
-* **FloatParameter** for **Float** parameter;
-* **TriggerParameter** for trigger-parameter (best suited for events, like 'fall', etc.);
-
-Kinda like that:
+## Step 1: Define Parameters
+Add the namespace and declare your parameters:
 
 ```
+using MadeYellow.AnimatorParameter;
+
 private BooleanParameter _isMoving;
 private FloatParameter _velocity;
+private TriggerParameter _onLand;
 ```
 
-## Step 2. Instantiate parameters.
-Right after you obtaining a reference of your Animator - create instances of all parameters you've defined above. There are just two arguments:
-* **Codename**. It's just a string. It MUST be have same name that you've defined inside Animator controller in Unity Editor. *No need to define constant, just pass a string. Parameter will cache all the rest for you.*;
-* **Animator**. Well, this is the Animator tht you want to pass values into;
+The package support those types of parameters:
+* `BooleanParameter` for **Bool** parameters;
+* `IntegerParameter` for **Int** parameters;
+* `FloatParameter` for **Float** parameters;
+* `TriggerParameter` for triggers (best suited for events, like 'fall', etc.);
 
-Just like that:
+*Basically, it's the same types that are supported by Unity's `Animator`.*
+
+## Step 2: Instantiate Parameters
+Initialize them in `Awake()` or `Start()` with **name** & **Animator** reference:
 
 ```
 private void Awake()
 {
     _animator = GetComponent<Animator>();
 
-    // Create instances of parameters (define names right in the constructor, no need to cache them) and pass that animator into them
+    // Create instances of parameters like this
     _isMoving = new BooleanParameter("is_moving", _animator);
     _velocity = new FloatParameter("velocity", _animator);
     _onLand = new TriggerParameter("on_land", _animator);
 }
 ```
 
-## Step 3. Use parameters.
-And that's it! Now you might just call `.Value` of your parameter and assign a value into it. Parameter will automatically send that value to the Animator.
+There are just two arguments among ANY of the AnimatorParameter:
+* `codename` It's just a `string`. It MUST be have same name that you've defined inside Animator controller in Unity Editor. *No need to define constant, just pass a string right into the constructor. Parameter will do the rest for you.*;
+* `animator` Well, this is the `Animator` that you want to pass values into;
 
-As simple as:
+## Step 3: Use Parameters Effortlessly
+Now you might GET or SET values by just calling `.Value` property of your parameter!
 
 ```
-private void SomeSetMethod()
+private void HowToSetValues()
 {
-    // This is easily you may SET value in the Animator
+    // This is how you SET values in the Animator
     _isMoving.Value = true; // Pass your BOOL value here
     _velocity.Value = 10f; // Pass your FLOAT value here
 
@@ -74,14 +75,14 @@ private void SomeSetMethod()
     _onLand.Trigger();
 }
 
-private void SomeGetMethod()
+private void HowToGetValues()
 {
-    // This is how easily you may GET value from the Animator
+    // This is how GET values from the Animator
     var isCurrentlyMoving = _isMoving.Value;
 }
 ```
 
-Here is the full example code:
+## 🎯 Full Usage Example
 
 ```
 using MadeYellow.AnimatorParameter;
@@ -129,12 +130,13 @@ private void SomeGetMethod()
 }
 ```
 
-# Why it's usefull?
+# ⚡ Why You’ll Love It
+* 🧠 **Zero name caching** – Define names once in constructors;
+* ⚡ **Auto-hashing** – Package uses `Animator.StringToHash()` under the hood;
+* 💎 **Clean syntax** – `.Value` for get/set, `.Trigger()` for events;
+* 🚀 **Performance optimized** – Future plans for value-diff checks;
+* 📦 **Tiny & dependency-free** – Minimal footprint;
 
-* No need to cache parameter name - just define it in the constructor and forget about it;
-* It uses `Animator.StringToHash()` inside to ensuremaxmum performance;
-* Super easy to GET or SET new value by just accessing `.Value` of parameter;
-*  got plans to add a value caching into a base class, to animator will receive new value only if it's changed;
 
 # Want me to add something OR found a bug?
 
